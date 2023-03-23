@@ -12,13 +12,30 @@ namespace CMP1903M_A01_2223
 
         public Pack()
         {
-            //Initialise the card pack here
+            Packs = new List<Pack>()
+            int numSuits = Enum.GetNames(typeof(Suit)).Length;
+            int numKinds = Enum.GetNames(typeof(Kind)).Length;
+            
+            for (int suit = 0; suit < numSuits; suit++)
+            {
+                for (int kind = 0; kind < numKinds; kind++)
+            {
+                Packs.Add(new Pack((Kind)kind, (Suit)suit));
+            }
         }
 
         public static bool shuffleCardPack(int typeOfShuffle)
         {
-            //Shuffles the pack based on the type of shuffle
-
+            Random random = new Random();
+            int n = CountCardsInDeck;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                Card randomCard = Cards[k];
+                Cards[k] = Cards[n];
+                Cards[n] = randomCard;
+            }
         }
         public static Card deal()
         {
